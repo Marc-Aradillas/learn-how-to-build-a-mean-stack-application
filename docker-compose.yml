@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  app:
+    container_name: lafs-api
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      - DB_HOST=mongo
+      - DB_PORT=27017
+      - DB_NAME=lafs
+      - DB_USER=
+      - DB_PASSWORD=
+      - DB_URL=mongodb://mongo:27017/lafs
+
+  mongo:
+    container_name: lafs-db
+    image: mongo:4
+    ports:
+      - "27017:27017"
+
+networks:
+  default:
+    external:
+      name: lafs-net
